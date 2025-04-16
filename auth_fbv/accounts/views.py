@@ -32,6 +32,13 @@ def register(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password'])
             user.is_active = False
+            role = request.POST.get('role')
+            if role == "seller":
+                user.is_seller = True
+                user.is_customer = False
+            else:
+                user.is_seller = False
+                user.is_customer = True
             user.save()
             uidb64 = urlsafe_base64_encode(force_bytes(user.id))
             token = default_token_generator.make_token(user)

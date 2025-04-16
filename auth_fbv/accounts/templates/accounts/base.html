@@ -20,10 +20,18 @@
                 <li>
                   <a href="{% url 'home' %}" class="block py-2 px-3" aria-current="page">Home</a>
                 </li>
-               {% if user.is_authenticated %}
-                <li>
-                  <a href="#" class="block py-2 px-3">Dashboard</a>
-                </li>
+                {% if user.is_authenticated %}
+                  {% if user.is_seller %}
+                    <li>
+                      <a href="{% url 'seller_dashboard' %}" class="block py-2 px-3">Dashboard</a>
+                    </li>
+                    {% elif user.is_customer %}
+                      <li>
+                        <a href="{% url 'customer_dashboard' %}" class="block py-2 px-3">Dashboard</a>
+                      </li>
+                  {% endif %}
+                  
+               {% comment %} {% endif %} {% endcomment %}
                 <li>
                   <!-- Logout Button -->
                   <form method="post" action="{% url 'logout' %}">
