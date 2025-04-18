@@ -10,6 +10,7 @@ from .models import User
 from .utils import send_activation_email
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import SetPasswordForm
+from core.utils import access_role
 
 # Create your views here.
 
@@ -33,6 +34,7 @@ def register(request):
             user.set_password(form.cleaned_data['password'])
             user.is_active = False
             role = request.POST.get('role')
+            print(role)
             if role == "seller":
                 user.is_seller = True
                 user.is_customer = False
@@ -40,12 +42,13 @@ def register(request):
                 user.is_seller = False
                 user.is_customer = True
             user.save()
+            access_role(user, role=role)
             uidb64 = urlsafe_base64_encode(force_bytes(user.id))
             token = default_token_generator.make_token(user)
             activation_link = reverse(
                 'activate', kwargs={'uidb64': uidb64, 'token': token})
             activation_url = f"{settings.SITE_DOMAIN}{activation_link}"
-            subject = f'Activate your account ' + {settings.SITE_NAME}
+            subject = f'Activate your account  + {settings.SITE_NAME}'
             template = 'activation_email'
             send_activation_email(subject, template, user.email, activation_url)
             messages.success(

@@ -3,4 +3,13 @@
 
 {% block content %}
 <h1>Seller Dashboard</h1>
+<a href="{% url 'password_change' %}" class="bg-rose-400 p-4 m-6">Change Password</a>
+<hr>
+<br><br>
+<ul>
+    <li><a href="{% url 'product_list' %}">Product List</a></li>
+    {% if perms.product.add_product %}
+    <li><a href="{% url 'product_add' %}">Product Add</a></li>
+    {% endif %}
+</ul>
 {% endblock content %}

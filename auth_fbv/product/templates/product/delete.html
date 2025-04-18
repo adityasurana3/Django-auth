@@ -1,0 +1,10 @@
+{% extends 'account/base.html' %}
+{% block title %}Product{% endblock title %}
+{% block content %}
+<h1 class="text-center mt-6 font-bold">Product List</h1>
+<p>Are you sure you want to delete "{{ product.name }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirm</button>
+</form>
+{% endblock content %}

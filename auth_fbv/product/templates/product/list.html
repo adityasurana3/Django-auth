@@ -1,0 +1,13 @@
+{% extends 'account/base.html' %}
+{% block title %}Product{% endblock title %}
+{% block content %}
+<h1 class="text-center mt-6 font-bold">Product List</h1>
+<ul>
+  {% for product in products %}
+      <li>
+          <a href="{% url 'product_detail' product.pk %}">
+            {{ product.name }}</a>
+      </li>
+  {% endfor %}
+</ul>
+{% endblock content %}

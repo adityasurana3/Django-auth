@@ -66,8 +66,15 @@
             <label for="role" class="block text-sm font-medium">Role</label>
             <select name="role" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm bg-gray-700 p-2" required>
                 <option value="customer">Customer</option>
-                <option value="Seller">Seller</option>
+                <option value="seller">Seller</option>
             </select>
+            {% if form.role.errors %}
+            <div class="text-red-500 text-sm mt-1">
+                {% for error in form.role.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
 
         <!-- Register Button -->

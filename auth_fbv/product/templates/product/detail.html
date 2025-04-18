@@ -1,0 +1,18 @@
+{% extends 'account/base.html' %}
+{% block title %}Product{% endblock title %}
+{% block content %}
+<h1 class="text-center mt-6 font-bold">Product List</h1>
+<h1>{{ product.name }}</h1>
+<p>{{ product.description }}</p>
+<p>Price: ${{ product.price }}</p>
+<div>
+  {% if perms.product.change_product %}
+  <a href="{% url 'product_edit' product.pk %}" class="bg-orange-500 px-4 py-2">Edit</a>
+  {% endif %}
+  {% if perms.product.delete_product %}
+  <a href="{% url 'product_delete' product.pk %}" class="bg-red-500 px-4 py-2">Delete</a>
+  {% endif %}
+
+</div>
+
+{% endblock content %}
